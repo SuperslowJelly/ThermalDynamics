@@ -261,7 +261,11 @@ public class BlockDuct extends BlockTDBase implements IBlockAppearance, IConfigG
 			return false;
 		}
 		TileGrid theTile = (TileGrid) tile;
-		return (theTile != null && (theTile.getCover(side.ordinal()) != null || theTile.getAttachment(side.ordinal()) != null && theTile.getAttachment(side.ordinal()).makesSideSolid())) || super.isSideSolid(base_state, world, pos, side);
+		try {
+			return (theTile != null && (theTile.getCover(side.ordinal()) != null || theTile.getAttachment(side.ordinal()) != null && theTile.getAttachment(side.ordinal()).makesSideSolid())) || super.isSideSolid(base_state, world, pos, side);
+		} catch (ClassCastException e) {
+			return false;
+		}
 	}
 
 	//	@Override
